@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "540059364341",
+    "project_id": "menta-health-specalist-app",
+    "storage_bucket": "menta-health-specalist-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540059364341:android:610ba8956142f071de0ebc",
+        "android_client_info": {
+          "package_name": "com.starfallindustries.mental_health_specialist_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540059364341-cnhoi8o0fuhm25vj4iqkdp6qpn9snk4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU6X0Fdf7_U5VIEHolGuxvoDNdaAm05CU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540059364341-cnhoi8o0fuhm25vj4iqkdp6qpn9snk4v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

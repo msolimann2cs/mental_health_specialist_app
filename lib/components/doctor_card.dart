@@ -20,7 +20,8 @@ class DoctorCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //print("object");
-        Navigator.pushNamed(context, BookingScreen.id);
+        //Navigator.push(context, )
+        Navigator.pushNamed(context, BookingScreen.id, arguments: doctor_name);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -56,25 +57,28 @@ class DoctorCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 37.0, left: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      doctor_name,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        doctor_type,
+                child: Container(
+                  width: 150,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        doctor_name,
                         style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          doctor_type,
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
