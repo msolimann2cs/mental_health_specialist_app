@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/booking_screen.dart';
+import '../screens/BookingSreen.dart';
 
 class DoctorCard extends StatelessWidget {
   DoctorCard({
@@ -9,9 +9,11 @@ class DoctorCard extends StatelessWidget {
     required this.doctor_name,
     required this.image,
     required this.specialist_genres,
+    required this.cost,
   });
   final String doctor_type;
   final String doctor_name;
+  final String cost;
   final NetworkImage image;
   List<String> specialist_genres = [];
 
@@ -82,10 +84,23 @@ class DoctorCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 50.0, left: 40),
-                child: Icon(
-                  Icons.phone_outlined,
-                  size: 30,
+                padding: const EdgeInsets.only(top: 45.0, left: 40),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.phone_outlined,
+                      size: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        "\$" + cost,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

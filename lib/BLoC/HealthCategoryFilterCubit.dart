@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 
-import 'health_category_filter.dart';
+import '../Components/HealthCategoryFilter.dart';
 
-part 'health_category_filter_state.dart';
+part 'HealthCategoryFilterState.dart';
 
 final List<HealthCategoryFilter> testest2 = [
   HealthCategoryFilter(

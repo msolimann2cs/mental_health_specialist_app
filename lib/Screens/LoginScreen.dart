@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
+import 'package:mental_health/screens/RegisterScreen.dart';
 
-import 'main_screen.dart';
+import 'HomeScreen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
-  static String id = "register_screen";
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+  static String id = "login_screen";
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final firestore = FirebaseFirestore.instance;
-  String fullname = '';
   String username = '';
-  String password_main = '';
-  String password_confirm = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,26 +31,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 0, left: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "˿",
-                    style: TextStyle(fontSize: 100, color: Colors.grey),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 80, bottom: 20.0, left: 20),
+                padding:
+                    const EdgeInsets.only(top: 150, bottom: 50.0, left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Create an account',
+                      'Login',
                       style:
-                          TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Please sign in to continue',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
                     ),
                   ],
                 ),
@@ -58,33 +54,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               // Text('Username'),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
-                child: TextField(
-                  onChanged: (value) {
-                    fullname = value;
-                  },
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: 'Full Name',
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
                 child: TextField(
                   onChanged: (value) {
                     username = value;
@@ -117,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: true,
                   textAlign: TextAlign.center,
                   onChanged: (value) {
-                    password_main = value;
+                    password = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -140,50 +109,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10.0),
-                child: TextField(
-                  obscureText: true,
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-                    password_confirm = value;
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Confirm Password',
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.only(top: 23.0, left: 230),
                 child: Center(
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       //firestore.collection('users').doc()
-                      // if (await AuthUser(username, password)) {
-                      //   Navigator.pushNamed(context, MainScreen.id);
-                      // }
-                      // ;
-                      if (!fullname.isEmpty &&
-                          !username.isEmpty &&
-                          !password_main.isEmpty) {
-                        RegisterUser(fullname, username, password_main,
-                            password_confirm);
+                      if (await AuthUser(username, password)) {
+                        await BlocProvider.of<DashboardScreenCubit>(context)
+                            .LoadDashboard();
                         Navigator.pushNamed(context, MainScreen.id);
                       }
+                      ;
                     },
                     child: Container(
                       width: 120,
@@ -200,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Sign Up  ➜",
+                              "Login  ➜",
                               style: (TextStyle(
                                   color: true ? Colors.white : Colors.blue,
                                   fontWeight: FontWeight.w500)),
@@ -213,22 +149,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 60.0),
+                padding: const EdgeInsets.only(top: 130.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account?",
+                      "Don't have an account?",
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, RegisterScreen.id);
                         },
                         child: Text(
-                          "Sign in",
+                          "Sign up",
                           style: TextStyle(fontSize: 16, color: Colors.blue),
                         ),
                       ),
@@ -243,12 +179,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void RegisterUser(String fullname, String username, String password,
-      String password_confirm) {
-    if (password == password_confirm) {
-      firestore.collection('users').doc(fullname).set(
-          {'fullname': fullname, 'username': username, 'password': password});
+  Future<bool> AuthUser(String username, String password) async {
+    final users = await GetUsers();
+    //for (var v in users.values)
+    // users.forEach((key, value) {
+    //   print("key" + key);
+    //   print("value" + value);
+    // } as void Function(Map<String, dynamic> element));
+    int index = 0;
+    bool isUser = false;
+    List<String> usernames = users.fold<List<String>>(
+        [], (prev, element) => List.from(prev)..add(element['username']));
+    List<String> passwords = users.fold<List<String>>(
+        [], (prev, element) => List.from(prev)..add(element['password']));
+    for (int i = 0; i < usernames.length; i++) {
+      if (usernames.elementAt(i) == username &&
+          passwords.elementAt(i) == password) {
+        print("true");
+        return true;
+      }
     }
+    return false;
     //print(usernames); // [rabbittoy, mousetoy, cat, dog]
   }
 

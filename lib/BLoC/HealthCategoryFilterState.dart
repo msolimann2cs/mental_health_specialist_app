@@ -1,4 +1,4 @@
-part of 'health_category_filter_cubit.dart';
+part of 'HealthCategoryFilterCubit.dart';
 
 class HealthCategoryState {
   HealthCategoryState({

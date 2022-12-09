@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mental_health/components/health_category_filter_cubit.dart';
-import 'package:mental_health/components/specialist_cubit.dart';
+
+import '../BLoC/HealthCategoryFilterCubit.dart';
+import '../BLoC/SpecialistCubit.dart';
+
 
 class SearchBar extends StatelessWidget {
   const SearchBar({

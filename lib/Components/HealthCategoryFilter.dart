@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mental_health/components/health_category_filter_cubit.dart';
-import 'package:mental_health/components/specialist_cubit.dart';
+import 'package:mental_health/BLoC/SpecialistCubit.dart';
+
+import '../BLoC/HealthCategoryFilterCubit.dart';
 
 class HealthCategoryFilter extends StatefulWidget {
   //const HealthCategoryFilter({Key? key}) : super(key: key);

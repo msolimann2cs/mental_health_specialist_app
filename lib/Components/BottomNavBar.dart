@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health/Screens/DashboardScreen.dart';
 
 class bt_navbar extends StatelessWidget {
   const bt_navbar({
@@ -43,15 +44,20 @@ class bt_navbar extends StatelessWidget {
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                (Icons.article_outlined),
-                size: 28,
-              ),
-              Text('Dashboard'),
-            ],
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, DashboardScreen.id);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  (Icons.article_outlined),
+                  size: 28,
+                ),
+                Text('Dashboard'),
+              ],
+            ),
           ),
           // GestureDetector(
           //   onTap: () {

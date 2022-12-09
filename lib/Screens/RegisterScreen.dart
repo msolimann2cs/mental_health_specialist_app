@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mental_health/screens/register_screen.dart';
 
-import 'main_screen.dart';
+import 'HomeScreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-  static String id = "login_screen";
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+  static String id = "register_screen";
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final firestore = FirebaseFirestore.instance;
+  String fullname = '';
   String username = '';
-  String password = '';
+  String password_main = '';
+  String password_confirm = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +31,26 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.only(top: 150, bottom: 50.0, left: 20),
+                padding: const EdgeInsets.only(top: 0, left: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "˿",
+                    style: TextStyle(fontSize: 100, color: Colors.grey),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 80, bottom: 20.0, left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Login',
+                      'Create an account',
                       style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Please sign in to continue',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
+                          TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -53,6 +58,33 @@ class _LoginScreenState extends State<LoginScreen> {
               // Text('Username'),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
+                child: TextField(
+                  onChanged: (value) {
+                    fullname = value;
+                  },
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Full Name',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10),
                 child: TextField(
                   onChanged: (value) {
                     username = value;
@@ -85,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   textAlign: TextAlign.center,
                   onChanged: (value) {
-                    password = value;
+                    password_main = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -108,15 +140,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 10.0),
+                child: TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    password_confirm = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.blueAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.only(top: 23.0, left: 230),
                 child: Center(
                   child: GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       //firestore.collection('users').doc()
-                      if (await AuthUser(username, password)) {
+                      // if (await AuthUser(username, password)) {
+                      //   Navigator.pushNamed(context, MainScreen.id);
+                      // }
+                      // ;
+                      if (!fullname.isEmpty &&
+                          !username.isEmpty &&
+                          !password_main.isEmpty) {
+                        RegisterUser(fullname, username, password_main,
+                            password_confirm);
                         Navigator.pushNamed(context, MainScreen.id);
                       }
-                      ;
                     },
                     child: Container(
                       width: 120,
@@ -133,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Login  ➜",
+                              "Sign Up  ➜",
                               style: (TextStyle(
                                   color: true ? Colors.white : Colors.blue,
                                   fontWeight: FontWeight.w500)),
@@ -146,22 +213,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 130.0),
+                padding: const EdgeInsets.only(top: 60.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Already have an account?",
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RegisterScreen.id);
+                          Navigator.pop(context);
                         },
                         child: Text(
-                          "Sign up",
+                          "Sign in",
                           style: TextStyle(fontSize: 16, color: Colors.blue),
                         ),
                       ),
@@ -176,26 +243,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<bool> AuthUser(String username, String password) async {
-    final users = await GetUsers();
-    //for (var v in users.values)
-    // users.forEach((key, value) {
-    //   print("key" + key);
-    //   print("value" + value);
-    // } as void Function(Map<String, dynamic> element));
-    int index = 0;
-    bool isUser = false;
-    List<String> usernames = users.fold<List<String>>(
-        [], (prev, element) => List.from(prev)..add(element['username']));
-    List<String> passwords = users.fold<List<String>>(
-        [], (prev, element) => List.from(prev)..add(element['password']));
-    for (int i = 0; i < usernames.length; i++) {
-      if (usernames.elementAt(i) == username &&
-          passwords.elementAt(i) == password) {
-        return true;
-      }
+  void RegisterUser(String fullname, String username, String password,
+      String password_confirm) {
+    if (password == password_confirm) {
+      firestore.collection('users').doc(fullname).set(
+          {'fullname': fullname, 'username': username, 'password': password});
     }
-    return false;
     //print(usernames); // [rabbittoy, mousetoy, cat, dog]
   }
 
