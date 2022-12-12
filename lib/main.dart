@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
+import 'package:mental_health/BLoC/DataManagerCubit.dart';
 import 'package:mental_health/Screens/DashboardScreen.dart';
 import 'package:mental_health/Screens/PayScreen.dart';
 import 'package:mental_health/screens/BookingSreen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => DataManagerCubit()),
         BlocProvider(create: (context) => SpecialistCubit()),
         BlocProvider(create: (context) => HealthCategoryCubit()),
         BlocProvider(create: (context) => BookingScreenCubit()),

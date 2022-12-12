@@ -10,12 +10,12 @@ part 'DashboardScreenState.dart';
 List<SpecialistCardTwo> appointments_two = [];
 
 class DashboardScreenCubit extends Cubit<DashboardScreenState> {
-  DashboardScreenCubit() : super(DashboardScreenState(appointments: [])) {}
+  DashboardScreenCubit() : super(DashboardScreenState(appointments: []));
 
-  Future<void> LoadDashboard() async {
+  Future<void> LoadDashboard(String userFullName) async {
     QuerySnapshot all_appointments_snapshot = await firestore
         .collection("users")
-        .doc("Mohamed A. Soliman")
+        .doc(userFullName)
         .collection("appointments")
         .get();
     var all_appointments = all_appointments_snapshot.docs;
@@ -30,6 +30,7 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState> {
       String dayHour = all_appointments.elementAt(i)["dayHour"];
       String specialistName = all_appointments.elementAt(i)["specialist"];
       String cost = all_appointments.elementAt(i)["cost"];
+      String image = all_appointments.elementAt(i)["image"];
       bool isDone = all_appointments.elementAt(i)["isDone"];
 
       SpecialistCardTwo card = SpecialistCardTwo(
@@ -38,6 +39,7 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState> {
           dayDate: dayDate,
           dayHour: dayHour,
           cost: cost,
+          image: image,
           isDone: isDone);
       appointments_two.add(card);
       //testest.add(card);

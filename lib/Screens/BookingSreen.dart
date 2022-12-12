@@ -60,7 +60,7 @@ class _BookingScreenState extends State<BookingScreen> {
                               //         args.substring(4, args.length));
                             },
                             child: Text(
-                              'November 2022',
+                              'December 2022',
                               style: TextStyle(
                                   fontSize: 23, fontWeight: FontWeight.bold),
                             ),
@@ -75,7 +75,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 BookingScreenState>(builder: (context, state) {
                               return StreamBuilder(
                                 stream: firestore
-                                    .collection('users')
+                                    .collection('specialists')
                                     .doc(args.substring(4, args.length))
                                     .collection('bookingDays')
                                     .snapshots(),
@@ -83,19 +83,39 @@ class _BookingScreenState extends State<BookingScreen> {
                                   final test_arr = snapshot.data!.docs
                                       .map((doc) => doc.data())
                                       .toList();
-                                  test_arr.sort((a, b) {
+                                  //print(test_arr);
+                                  //print(test_arr[0]['bookingDays']);
+                                  Map test_arr2 = test_arr[0]['bookingDays'];
+                                  print(test_arr2);
+                                  List test_arr3 = [];
+                                  test_arr2.forEach((key, value) {
+                                    test_arr3.add(value);
+                                  });
+                                  print(test_arr3);
+                                  // .map((doc) => doc.data())
+                                  // .toList();
+                                  // test_arr.sort((a, b) {
+                                  //   return (a['dayDate'])
+                                  //       .compareTo(b['dayDate']);
+                                  // });
+                                  //print(test_arr);
+                                  test_arr3.sort((a, b) {
+                                    //test_arr[0]['bookingDays']['day1']
                                     return (a['dayDate'])
                                         .compareTo(b['dayDate']);
                                   });
+                                  print(test_arr3);
+                                  // print(test_arr2);
                                   //state.specialistAvailableDays.clear();
-                                  for (int i = 0; i < test_arr.length; i++) {
+                                  for (int i = 0; i < test_arr3.length; i++) {
                                     BookingDayCard bookingDay = BookingDayCard(
-                                      dayName: test_arr[i]["dayName"],
-                                      dayDate: test_arr[i]["dayDate"],
+                                      dayName: test_arr3[i]["dayName"],
+                                      dayDate:
+                                          test_arr3[i]["dayDate"].toString(),
                                       isClicked: false,
                                     );
                                     if (state.specialistAvailableDays.length <
-                                        test_arr.length) {
+                                        test_arr3.length) {
                                       state.specialistAvailableDays
                                           .add(bookingDay);
                                     }

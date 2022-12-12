@@ -93,6 +93,7 @@ class SpecialistCardTwo extends StatelessWidget {
     required this.dayDate,
     required this.dayHour,
     required this.cost,
+    required this.image,
     required this.isDone,
   });
   String specialistName;
@@ -100,6 +101,7 @@ class SpecialistCardTwo extends StatelessWidget {
   String dayDate;
   String dayHour;
   String cost;
+  String image;
   bool isDone;
 
   @override
@@ -112,7 +114,10 @@ class SpecialistCardTwo extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Colors.grey.shade200),
+            border: isDone
+                ? Border.all(color: Colors.grey.shade200)
+                : Border.all(color: Colors.green),
+            //color: Colors.grey.shade200
             borderRadius: BorderRadius.all(
               Radius.circular(30),
             ),
@@ -130,10 +135,10 @@ class SpecialistCardTwo extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(30),
                     ),
-                    // image: DecorationImage(
-                    //   image: BlocProvider.of<SpecialistCubit>(context).state.test,
-                    //   fit: BoxFit.cover,
-                    // ),
+                    image: DecorationImage(
+                      image: NetworkImage(image),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

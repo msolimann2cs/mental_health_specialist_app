@@ -1,13 +1,19 @@
 part of 'BookingScreenCubit.dart';
 
-
 class BookingScreenState extends Equatable {
   BookingScreenState({
     required this.specialistAvailableDays,
     required this.specialistAvailableTimes,
   });
-  List<BookingDayCard> specialistAvailableDays;
-  List<BookingHourCard> specialistAvailableTimes;
+  List<BookingDayCard> specialistAvailableDays = [
+    BookingDayCard(dayName: "dayName", dayDate: "dayDate", isClicked: false)
+  ];
+  List<BookingHourCard> specialistAvailableTimes = [
+    BookingHourCard(
+      hour: "hour",
+      isClicked: false,
+    )
+  ];
 
   BookingScreenState copyWith({
     required List<BookingDayCard> test3,

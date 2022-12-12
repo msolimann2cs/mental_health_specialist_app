@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/BLoC/BookingScreenCubit.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
+import 'package:mental_health/BLoC/DataManagerCubit.dart';
 import 'package:mental_health/Components/BookingDayCard.dart';
 import 'package:mental_health/Components/BookingHourCard.dart';
 import 'package:mental_health/Components/ButtonCard.dart';
@@ -138,6 +139,7 @@ class _PayScreenState extends State<PayScreen> {
                           var bookingDayDate = '';
                           var bookingDayHour = '';
                           print(test_temp_booking_days.dayName);
+
                           // for (int i = 0;
                           //     i < test_temp_booking_days.length;
                           //     i++) {
@@ -158,11 +160,16 @@ class _PayScreenState extends State<PayScreen> {
                           //         test_temp_booking_hours.elementAt(i).hour;
                           //   }
                           // }
+                          String userFullName =
+                              BlocProvider.of<DataManagerCubit>(context)
+                                  .state
+                                  .loggedInUser;
                           firestore
                               .collection("users")
-                              .doc("Mohamed A. Soliman")
+                              .doc(userFullName)
                               .collection("appointments")
                               .add({
+                            "image": test_temp2.image.url,
                             "cost": test_temp2.cost,
                             "dayDate": test_temp_booking_days.dayDate,
                             "dayHour": test_temp_booking_hours,
@@ -172,7 +179,7 @@ class _PayScreenState extends State<PayScreen> {
                           });
                           print("test");
                           BlocProvider.of<DashboardScreenCubit>(context)
-                              .LoadDashboard();
+                              .LoadDashboard(userFullName);
                           Navigator.popUntil(
                               context, ModalRoute.withName(MainScreen.id));
                         },

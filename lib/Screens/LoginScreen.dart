@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
+import 'package:mental_health/BLoC/DataManagerCubit.dart';
+import 'package:mental_health/BLoC/SpecialistCubit.dart';
 import 'package:mental_health/screens/RegisterScreen.dart';
 
 import 'HomeScreen.dart';
@@ -27,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
@@ -115,8 +116,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () async {
                       //firestore.collection('users').doc()
                       if (await AuthUser(username, password)) {
+                        await BlocProvider.of<DataManagerCubit>(context)
+                            .LoginUser(username);
+                        String userFullName =
+                            await BlocProvider.of<DataManagerCubit>(context)
+                                .state
+                                .loggedInUser;
+                        print("home: " + userFullName);
                         await BlocProvider.of<DashboardScreenCubit>(context)
-                            .LoadDashboard();
+                            .LoadDashboard(userFullName);
+                        await BlocProvider.of<SpecialistCubit>(context)
+                            .GetSpecialists();
                         Navigator.pushNamed(context, MainScreen.id);
                       }
                       ;
