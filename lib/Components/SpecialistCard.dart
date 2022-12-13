@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/BookingSreen.dart';
+import '../screens/BookingScreen.dart';
 
 class DoctorCard extends StatelessWidget {
   DoctorCard({

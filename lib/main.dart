@@ -1,11 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mental_health/BLoC/ChatScreenCubit.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
 import 'package:mental_health/BLoC/DataManagerCubit.dart';
+import 'package:mental_health/Screens/ChatScreen.dart';
 import 'package:mental_health/Screens/DashboardScreen.dart';
+import 'package:mental_health/Screens/MainChatScreen.dart';
 import 'package:mental_health/Screens/PayScreen.dart';
-import 'package:mental_health/screens/BookingSreen.dart';
+import 'package:mental_health/Screens/ProfileScreen.dart';
+import 'package:mental_health/screens/BookingScreen.dart';
 import 'package:mental_health/screens/LoginScreen.dart';
 import 'package:mental_health/screens/HomeScreen.dart';
 import 'package:mental_health/screens/RegisterScreen.dart';
@@ -33,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => HealthCategoryCubit()),
         BlocProvider(create: (context) => BookingScreenCubit()),
         BlocProvider(create: (context) => DashboardScreenCubit()),
+        BlocProvider(create: (context) => ChatScreenCubit()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
@@ -47,6 +52,9 @@ class MyApp extends StatelessWidget {
             BookingScreen.id: (context) => BookingScreen(),
             PayScreen.id: (context) => PayScreen(),
             DashboardScreen.id: (context) => DashboardScreen(),
+            ChatScreen.id: (context) => ChatScreen(),
+            MainChatScreen.id: (context) => MainChatScreen(),
+            ProfileScreen.id: (context) => ProfileScreen(),
           }),
     );
   }

@@ -109,7 +109,7 @@ class _PayScreenState extends State<PayScreen> {
                       padding: const EdgeInsets.only(top: 40.0),
                       child: ButtonCard(
                         buttonText: "Confirm",
-                        func: () {
+                        func: () async {
                           var test_temp =
                               BlocProvider.of<SpecialistCubit>(context)
                                   .state
@@ -177,6 +177,12 @@ class _PayScreenState extends State<PayScreen> {
                             "isDone": false,
                             "specialist": args,
                           });
+                          String docName =
+                              "chat: " + userFullName + " - " + args;
+                          if (!(await checkIfDocExists(docName))) {
+                            firestore.collection('chats').doc(docName).set({});
+                          }
+
                           print("test");
                           BlocProvider.of<DashboardScreenCubit>(context)
                               .LoadDashboard(userFullName);
@@ -193,6 +199,18 @@ class _PayScreenState extends State<PayScreen> {
         ),
       ),
     );
+  }
+}
+
+Future<bool> checkIfDocExists(String docId) async {
+  try {
+    // Get reference to Firestore collection
+    var collectionRef = firestore.collection('chats');
+
+    var doc = await collectionRef.doc(docId).get();
+    return doc.exists;
+  } catch (e) {
+    throw e;
   }
 }
 

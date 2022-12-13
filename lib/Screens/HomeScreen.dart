@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
-import 'package:mental_health/screens/BookingSreen.dart';
+import 'package:mental_health/Components/BottomNavBar.dart';
+import 'package:mental_health/screens/BookingScreen.dart';
 
 import '../BLoC/HealthCategoryFilterCubit.dart';
 import '../BLoC/SpecialistCubit.dart';
-import '../components/BottomNavBar.dart';
 import '../components/SpecialistCard.dart';
 import '../components/SearchBar.dart';
 
@@ -99,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                const bt_navbar(),
+                const BottomNavBar(),
               ],
             ),
           ),

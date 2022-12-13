@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mental_health/components/BookingDayCard.dart';
 
 import '../components/BookingHourCard.dart';
-import '../screens/BookingSreen.dart';
+import '../screens/BookingScreen.dart';
 
 part 'BookingScreenState.dart';
 

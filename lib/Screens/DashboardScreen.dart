@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mental_health/BLoC/BookingScreenCubit.dart';
 import 'package:mental_health/BLoC/DashboardScreenCubit.dart';
+import 'package:mental_health/Components/BottomNavBar.dart';
 
 import '../BLoC/SpecialistCubit.dart';
 
@@ -67,18 +68,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 15.0),
-          child: BlocBuilder<DashboardScreenCubit, DashboardScreenState>(
-              builder: (context, state) {
-            print(state.appointments);
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 15, left: 30, bottom: 25.0),
+                  child: Text(
+                    "Appointments",
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                BlocBuilder<DashboardScreenCubit, DashboardScreenState>(
+                    builder: (context, state) {
+                  print(state.appointments);
 
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                return state.appointments[index];
-              },
-              itemCount: state.appointments.length,
-              scrollDirection: Axis.vertical,
-            );
-          }),
+                  return Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return state.appointments[index];
+                      },
+                      itemCount: state.appointments.length,
+                      scrollDirection: Axis.vertical,
+                    ),
+                  );
+                }),
+                BottomNavBar(),
+              ],
+            ),
+          ),
         ),
       ),
     );
