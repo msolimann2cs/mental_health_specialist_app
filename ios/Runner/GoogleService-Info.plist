@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>540059364341-2dt44rommf8pmfrlme6jlc6129fh13nk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.540059364341-2dt44rommf8pmfrlme6jlc6129fh13nk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA3fi_fy8jdnnpvgirJ2ITcd0e_RMWx9_I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>540059364341</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.starfallindustries.mental-health-specialist-app</string>
+	<key>PROJECT_ID</key>
+	<string>menta-health-specalist-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>menta-health-specalist-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:540059364341:ios:20a562fa1ffd9ac9de0ebc</string>
+</dict>
+</plist>
